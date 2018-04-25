@@ -8,7 +8,7 @@ const HomeTeam TeamPlace = "home"
 const AwayTeam TeamPlace = "away"
 const PlayerSize = 10
 const BallSize = 5
-
+const BallMinPower = 0.25 // minimal power to make the ball move
 
 const CourtWidth = 200  // unitss
 const CourtHeight = 100 // units
