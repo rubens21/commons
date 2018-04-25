@@ -8,7 +8,7 @@ import (
 
 func Load(config interface{}) {
 	//filename is the path to the json config file
-	file, err := os.Open("eurema.config")
+	file, err := os.Open("maketplay.config")
 	if err != nil {
 		return
 	}
