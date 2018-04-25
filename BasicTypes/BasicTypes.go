@@ -6,6 +6,7 @@ type Order struct {
 }
 
 type MsgType string
+
 type OrderType string
 
 const (
