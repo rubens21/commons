@@ -6,12 +6,11 @@ import (
 	"github.com/rafaeljesus/rabbus"
 	"context"
 	"log"
-	"fmt"
 	"net/url"
 )
 
 type Comunicator struct {
-	onMessage   func(msg []byte)
+	onMessage   func(msg *rabbus.ConsumerMessage)
 	speaker     *rabbus.Rabbus
 	queue       string
 	exchange    string
@@ -19,7 +18,7 @@ type Comunicator struct {
 	stackCloses []func()
 }
 
-func CreateListener(urlConn url.URL, exchange, chat string, onMessage func(msg []byte)) *Comunicator {
+func CreateListener(urlConn url.URL, exchange, chat string, onMessage func(msg *rabbus.ConsumerMessage)) *Comunicator {
 	c := new(Comunicator)
 	c.onMessage = onMessage
 	c.queue = chat
@@ -28,11 +27,17 @@ func CreateListener(urlConn url.URL, exchange, chat string, onMessage func(msg [
 	c.startListener()
 	return c
 }
+
 func CreateSpeaker(urlConn url.URL, exchange, chat string) *Comunicator {
 	c := new(Comunicator)
 	c.queue = chat
 	c.exchange = exchange
 	c.url = urlConn
+	c.startSpeaker()
+	return c
+}
+func CreateCommunicator(urlConn url.URL, exchange, chat string, onMessage func(msg *rabbus.ConsumerMessage)) *Comunicator {
+	c := CreateListener(urlConn, exchange, chat, onMessage)
 	c.startSpeaker()
 	return c
 }
@@ -50,13 +55,14 @@ func (c *Comunicator) startSpeaker() {
 		rabbus.Threshold(3),
 		rabbus.OnStateChange(cbStateChangeFunc),
 	)
+
 	if err != nil {
 		panic(errors.New("Fail on AMQP connection: " + err.Error()))
 	}
 
 	c.deferCloser(func() {
 		if err := c.speaker.Close(); err != nil {
-			fmt.Printf("Error fechando o communica")
+			log.Printf("Fail on closing producer: %s", err)
 		}
 	})
 
@@ -82,10 +88,9 @@ func (c *Comunicator) Send(amsg []byte) {
 	for {
 		select {
 		case <-c.speaker.EmitOk():
-			log.Println("Message was sent")
 			break outer
 		case err := <-c.speaker.EmitErr():
-			log.Fatalf("Failed to send message %s", err)
+			LogError("Failed to send message: %s", err)
 			break outer
 		}
 	}
@@ -95,7 +100,6 @@ func (c *Comunicator) startListener() {
 	cbStateChangeFunc := func(name, from, to string) {
 		// do something when state is changed
 	}
-	fmt.Println(c.url.String())
 	r, err := rabbus.New(
 		c.url.String(),
 		rabbus.Durable(true),
@@ -105,19 +109,18 @@ func (c *Comunicator) startListener() {
 		rabbus.OnStateChange(cbStateChangeFunc),
 	)
 	if err != nil {
-		log.Fatalf("Failed to init rabbus connection %s", err)
+		LogError("Failed to init rabbus connection %s", err)
 		return
 	}
 
 	c.deferCloser(func() {
 		if err := r.Close(); err != nil {
-			log.Fatalf("Failed to close rabbus connection %s", err)
+			LogError("Failed to close rabbus connection %s", err)
 		}
 	})
 
 	ctx, cancel := context.WithCancel(context.Background())
 	c.deferCloser(func() {
-		fmt.Printf("clasing essa merda")
 		cancel()
 	})
 	go r.Run(ctx)
@@ -129,7 +132,7 @@ func (c *Comunicator) startListener() {
 		Queue:    c.queue,
 	})
 	if err != nil {
-		log.Fatalf("Failed to create listener %s", err)
+		LogError("Failed to create listener %s", err)
 		return
 	}
 
@@ -139,8 +142,7 @@ func (c *Comunicator) startListener() {
 
 	go func(messages chan rabbus.ConsumerMessage) {
 		for m := range messages {
-			c.onMessage(m.Body)
-			m.Ack(false)
+			c.onMessage(&m)
 		}
 	}(messages)
 }

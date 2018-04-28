@@ -1,11 +1,13 @@
 package commons
 
 import (
-	"bytes"
 	"fmt"
+	"github.com/fatih/color"
+	"bytes"
 )
 
 var NickName = "Unkown"
+
 
 func Log(message string, a ...interface{})  {
 	var buffer bytes.Buffer
@@ -13,4 +15,39 @@ func Log(message string, a ...interface{})  {
 	buffer.WriteString(message)
 	buffer.WriteString("\n")
 	fmt.Printf(buffer.String(), a...)
+}
+
+func LogAnn(message string, a ...interface{})  {
+	// You can mix up parameters
+	color.Set(color.FgHiGreen)
+	defer color.Unset() // Use it in your function
+	Log(message, a...)
+}
+
+func LogOrder(message string, a ...interface{})  {
+	// You can mix up parameters
+	color.Set(color.FgHiBlue)
+	defer color.Unset() // Use it in your function
+	Log(message, a...)
+}
+
+func LogDebug(message string, a ...interface{})  {
+	// You can mix up parameters
+	color.Set(color.FgCyan)
+	defer color.Unset() // Use it in your function
+	Log(message, a...)
+}
+
+func LogInfo(message string, a ...interface{})  {
+	// You can mix up parameters
+	color.Set(color.FgYellow)
+	defer color.Unset() // Use it in your function
+	Log(message, a...)
+}
+
+func LogError(message string, a ...interface{})  {
+	// You can mix up parameters
+	color.Set(color.FgHiRed, color.Bold)
+	defer color.Unset() // Use it in your function
+	Log(message, a...)
 }
