@@ -15,6 +15,7 @@ const (
 	ANNOUNCEMENT MsgType = "ANNOUNCEMENT" // let you know
 	SCORE        MsgType = "SCORE"        // score has changed
 	RIP          MsgType = "RIP"          // main process has died
+	WELCOME      MsgType = "WELCOME"          // main process has died
 
 	// orders sent by the PLAYER
 	ENTER OrderType = "ENTER" // I want to enjoy the team
