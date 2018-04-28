@@ -17,6 +17,13 @@ func Log(message string, a ...interface{})  {
 	fmt.Printf(buffer.String(), a...)
 }
 
+func LogNotice(message string, a ...interface{})  {
+	// You can mix up parameters
+	color.Set(color.FgWhite)
+	defer color.Unset() // Use it in your function
+	Log(message, a...)
+}
+
 func LogAnn(message string, a ...interface{})  {
 	// You can mix up parameters
 	color.Set(color.FgHiGreen)
@@ -41,6 +48,13 @@ func LogDebug(message string, a ...interface{})  {
 func LogInfo(message string, a ...interface{})  {
 	// You can mix up parameters
 	color.Set(color.FgYellow)
+	defer color.Unset() // Use it in your function
+	Log(message, a...)
+}
+
+func LogWarning(message string, a ...interface{})  {
+	// You can mix up parameters
+	color.Set(color.FgRed, color.Bold)
 	defer color.Unset() // Use it in your function
 	Log(message, a...)
 }

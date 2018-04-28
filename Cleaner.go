@@ -1,7 +1,6 @@
 package commons
 
 import (
-	"fmt"
 	"github.com/fatih/color"
 )
 
@@ -22,10 +21,10 @@ func RegisterCleaner(name string, callback func(bool)) {
 
 func Cleanup(interrupted bool)  {
 	color.Unset()
-	Log("Cleaning up")
+	LogNotice("Cleaning up")
 	for _, cleaner := range cleanerStack {
 		LogInfo("Closing: %s", cleaner.name)
 		cleaner.callback(interrupted)
 	}
-	fmt.Println("-- All cleaners done -- ")
+	LogNotice("-- All cleaners done -- ")
 }
