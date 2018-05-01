@@ -8,7 +8,7 @@ const (
 	WAITINGTEAMS State = "waiting"
 	GETREADY     State = "get-ready"
 	LISTENING    State = "listening"
-	PAUSE        State = "pause"
+	PAUSE        State = "pause" // debbuging mode, waiting for "nextStep" signal
 	PLAYING      State = "playing"
 	RESULTS      State = "results"
 	OVER         State = "game-over"
