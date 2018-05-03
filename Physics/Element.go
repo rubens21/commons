@@ -4,10 +4,10 @@ import (
 	"math"
 )
 
-
 type Element struct {
-	size   int
-	Coords Point `json:"position"`
+	size       int
+	Coords     Point   `json:"position"`
+	Dicrection *Vector `json:"vector"`
 }
 
 func (e *Element) MoveTo(coords Point) {
