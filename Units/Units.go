@@ -6,17 +6,20 @@ type TeamPlace string
 
 const HomeTeam TeamPlace = "home"
 const AwayTeam TeamPlace = "away"
-const PlayerSize = 10
-const BallSize = 5
+
+
+const BaseUnit = 100
+const PlayerSize = 10 * BaseUnit
+const BallSize = 5 * BaseUnit
 const BallMinPower = 0.25 // minimal power to make the ball move
 
-const CourtWidth = 200  // unitss
-const CourtHeight = 100 // units
+const CourtWidth = 200 * BaseUnit // unitss
+const CourtHeight = 100 * BaseUnit // units
 
 
 const BallSlowerRatio = 0.70                                 // ratio value for slowing the ball
-const PlayerSpeed = 5.0                                      // unit/lance
-const BallSpeed = 20.0                                       // units/lance
+const PlayerSpeed = 5.0 * BaseUnit                                     // unit/lance
+const BallSpeed = 20.0 * BaseUnit                                      // units/lance
 const DistanceCatchBall = float64(PlayerSize+BallSize) * 0.6 // units float
 
 var HomeTeamGoalcenter = Physics.Point{0, CourtHeight / 2}
@@ -34,19 +37,19 @@ const (
 )
 
 var InitialPostionHomeTeam = map[PlayerNumber]Physics.Point{
-	PositionA: {45,75},
-	PositionB: {45,50},
-	PositionC: {45,25},
-	PositionD: {75,60},
-	PositionE: {75,45},
+	PositionA: {45 * BaseUnit,75 * BaseUnit},
+	PositionB: {45 * BaseUnit,50 * BaseUnit},
+	PositionC: {45 * BaseUnit,25 * BaseUnit},
+	PositionD: {75 * BaseUnit,60 * BaseUnit},
+	PositionE: {75 * BaseUnit,45 * BaseUnit},
 }
 
 var InitialPostionAwayTeam = map[PlayerNumber]Physics.Point{
-	PositionA: {155, 25},
-	PositionB: {155, 50},
-	PositionC: {155, 75},
-	PositionD: {125, 45},
-	PositionE: {125, 60},
+	PositionA: {155 * BaseUnit, 25 * BaseUnit},
+	PositionB: {155 * BaseUnit, 50 * BaseUnit},
+	PositionC: {155 * BaseUnit, 75 * BaseUnit},
+	PositionD: {125 * BaseUnit, 45 * BaseUnit},
+	PositionE: {125 * BaseUnit, 60 * BaseUnit},
 }
 
 // Invert the coords X and Y as in a mirror to found out the same position seen from the away team field
