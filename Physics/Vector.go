@@ -1,11 +1,13 @@
 package Physics
 
-import "math"
+import (
+	"math"
+	"encoding/json"
+)
 
 type Vector struct {
-	x      float64
-	y      float64
-	length float64
+	x float64
+	y float64
 }
 
 func NewVector(from Point, to Point) *Vector {
@@ -13,6 +15,15 @@ func NewVector(from Point, to Point) *Vector {
 	v.x = float64(to.PosX) - float64(from.PosX)
 	v.y = float64(to.PosY) - float64(from.PosY)
 	return v
+}
+
+
+func (v *Vector) MarshalJSON() ([]byte, error) {
+	// Manually calling Marshal for Contents
+	return json.Marshal(map[string]interface{}{
+		"x": v.x,
+		"y": v.y,
+	})
 }
 
 func (v *Vector) Normalize() *Vector {
@@ -27,6 +38,17 @@ func (v *Vector) SetLength(length float64) *Vector {
 	v.Scale(length / v.Length())
 	return v
 }
+
+func (v *Vector) SetX(x float64) *Vector {
+	v.x = x
+	return v
+}
+
+func (v *Vector) SetY(y float64) *Vector {
+	v.y = y
+	return v
+}
+
 
 func (v *Vector) Invert() *Vector {
 	v.x = -v.x
@@ -71,4 +93,10 @@ func (v *Vector) TargetFrom(point Point) Point {
 		point.PosX + int(math.Round(v.x)),
 		point.PosY + int(math.Round(v.y)),
 	}
+}
+func (v *Vector) GetX() float64 {
+	return v.x
+}
+func (v *Vector) GetY() float64 {
+	return v.y
 }

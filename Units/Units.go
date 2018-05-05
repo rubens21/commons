@@ -22,8 +22,9 @@ const PlayerSpeed = 5.0 * BaseUnit                                     // unit/l
 const BallSpeed = 20.0 * BaseUnit                                      // units/lance
 const DistanceCatchBall = float64(PlayerSize+BallSize) * 0.6 // units float
 
-var HomeTeamGoalcenter = Physics.Point{0, CourtHeight / 2}
-var AwayTeamGoalcenter = Physics.Point{CourtWidth, CourtHeight / 2}
+var HomeTeamGoalCenter = Physics.Point{0, CourtHeight / 2}
+var AwayTeamGoalCenter = Physics.Point{CourtWidth, CourtHeight / 2}
+var CourtCenter = Physics.Point{CourtWidth / 2, CourtHeight / 2}
 const GoalWidth = PlayerSpeed * 4
 
 type PlayerNumber string
