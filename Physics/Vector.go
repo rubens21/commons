@@ -17,6 +17,12 @@ func NewVector(from Point, to Point) *Vector {
 	return v
 }
 
+func (v Vector) Copy() *Vector {
+	nv := new(Vector)
+	nv.x = v.x
+	nv.y = v.y
+	return nv
+}
 
 func (v *Vector) MarshalJSON() ([]byte, error) {
 	// Manually calling Marshal for Contents
@@ -100,3 +106,4 @@ func (v *Vector) GetX() float64 {
 func (v *Vector) GetY() float64 {
 	return v.y
 }
+

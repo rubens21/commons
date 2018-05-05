@@ -6,8 +6,8 @@ import (
 
 type Element struct {
 	size       int
-	Coords     Point   `json:"position"`
-	Dicrection *Vector `json:"vector"`
+	Coords     Point     `json:"position"`
+	Velocity   Velocity `json:"velocity"`
 }
 
 func (e *Element) MoveTo(coords Point) {

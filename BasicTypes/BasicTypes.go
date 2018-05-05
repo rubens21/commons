@@ -1,5 +1,10 @@
 package BasicTypes
 
+import (
+	"github.com/maketplay/commons/Units"
+	"github.com/maketplay/commons/Physics"
+)
+
 type Order struct {
 	Type OrderType              `json:"order"`
 	Data map[string]interface{} `json:"data"`
@@ -25,3 +30,9 @@ const (
 )
 
 type State string
+
+
+type PlayerSpecifications struct {
+	Number Units.PlayerNumber
+	InitialCoors Physics.Point
+}
