@@ -1,5 +1,7 @@
 package Physics
 
+import "fmt"
+
 type Velocity struct {
 	Direction *Vector  `json:"direction"`
 	Speed     float64 `json:"speed"`
@@ -22,4 +24,9 @@ func (v *Velocity) Copy() Velocity {
 func (v *Velocity) Add(velocity Velocity) {
 	v.Speed += velocity.Speed
 	v.Direction.Add(velocity.Direction)
+}
+
+
+func (v *Velocity) String() string {
+	return fmt.Sprintf("[%.2fx,%.2fy => %.2fs]", v.Direction.GetX(), v.Direction.GetY(), v.Speed)
 }

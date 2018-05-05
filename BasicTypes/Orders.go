@@ -38,6 +38,10 @@ func (o *Order) GetOrderKick() OrderKick {
 	return o.Data.(OrderKick)
 }
 
+func (o *Order) GetOrderCatch() OrderCatch {
+	return o.Data.(OrderCatch)
+}
+
 func (o *Order) UnmarshalJSON(b []byte) error {
 	var tmp struct {
 		Type  OrderType       `json:"order"`

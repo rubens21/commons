@@ -18,14 +18,14 @@ const CourtHeight = 100 * BaseUnit // units
 
 
 const BallSlowerRatio = 0.70                                 // ratio value for slowing the ball
-const PlayerSpeed = 5.0 * BaseUnit                                     // unit/lance
-const BallSpeed = 20.0 * BaseUnit                                      // units/lance
+const PlayerMaxSpeed = 5.0 * BaseUnit                        // unit/lance
+const BallMaxSpeed = 20.0 * BaseUnit                         // units/lance
 const DistanceCatchBall = float64(PlayerSize+BallSize) * 0.6 // units float
 
 var HomeTeamGoalCenter = Physics.Point{0, CourtHeight / 2}
 var AwayTeamGoalCenter = Physics.Point{CourtWidth, CourtHeight / 2}
 var CourtCenter = Physics.Point{CourtWidth / 2, CourtHeight / 2}
-const GoalWidth = PlayerSpeed * 4
+const GoalWidth = PlayerMaxSpeed * 4
 
 type PlayerNumber string
 
