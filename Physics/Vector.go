@@ -25,11 +25,24 @@ func (v Vector) Copy() *Vector {
 }
 
 func (v *Vector) MarshalJSON() ([]byte, error) {
-	// Manually calling Marshal for Contents
 	return json.Marshal(map[string]interface{}{
 		"x": v.x,
 		"y": v.y,
 	})
+}
+
+func (v *Vector) UnmarshalJSON(b []byte) error {
+	var tmp struct {
+		X float64 `json:"x"`
+		Y float64 `json:"y"`
+	}
+	err := json.Unmarshal(b, &tmp)
+	if err != nil {
+		return err
+	}
+	v.x = tmp.X
+	v.y = tmp.Y
+	return nil
 }
 
 func (v *Vector) Normalize() *Vector {
@@ -105,5 +118,9 @@ func (v *Vector) GetX() float64 {
 }
 func (v *Vector) GetY() float64 {
 	return v.y
+}
+
+func (v *Vector) IsEqualTo(b *Vector) bool {
+	return v.y == b.y && v.x == b.y
 }
 
