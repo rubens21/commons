@@ -23,5 +23,5 @@ type State string
 
 type PlayerSpecifications struct {
 	Number Units.PlayerNumber
-	InitialCoors Physics.Point
+	InitialCoords Physics.Point
 }
