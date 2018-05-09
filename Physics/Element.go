@@ -5,7 +5,7 @@ import (
 )
 
 type Element struct {
-	size       int
+	Size       int
 	Coords     Point     `json:"position"`
 	Velocity   Velocity `json:"velocity"`
 }
@@ -16,10 +16,6 @@ func (e *Element) MoveTo(coords Point) {
 
 func (e *Element) GetCoords() Point {
 	return e.Coords
-}
-
-func (e *Element) Size() int {
-	return e.size
 }
 
 func (e *Element) IsObstacle(target Point, obstacle Point, errMarginDegree float64) (degree float64, inRange bool) {
@@ -47,4 +43,11 @@ func (e *Element) IsObstacle(target Point, obstacle Point, errMarginDegree float
 		}
 		return diff, math.Abs(diff) <= errMarginDegree
 	}
+}
+
+func (e *Element) HasCollide(obstacle *Element) (bool, float64)  {
+	minDistance := float64(e.Size + obstacle.Size) / 2
+	centerDistance := NewVector(e.Coords, obstacle.Coords).Length()
+	realDistance := centerDistance - minDistance
+	return realDistance < 0, realDistance
 }

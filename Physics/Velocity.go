@@ -21,11 +21,19 @@ func (v *Velocity) Copy() Velocity {
 	return copyS
 }
 
+func (v *Velocity) Target(from Point) Point {
+	if v.Speed == 0 {
+		return from
+	} else {
+		v.Direction.SetLength(v.Speed)
+		return v.Direction.TargetFrom(from)
+	}
+}
+
 func (v *Velocity) Add(velocity Velocity) {
 	v.Speed += velocity.Speed
 	v.Direction.Add(velocity.Direction)
 }
-
 
 func (v *Velocity) String() string {
 	return fmt.Sprintf("[%.2fx,%.2fy => %.2fs]", v.Direction.GetX(), v.Direction.GetY(), v.Speed)

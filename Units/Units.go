@@ -9,8 +9,8 @@ const AwayTeam TeamPlace = "away"
 
 
 const BaseUnit = 100
-const PlayerSize = 10 * BaseUnit
-const BallSize = 5 * BaseUnit
+const PlayerSize = 4 * BaseUnit
+const BallSize = 2 * BaseUnit
 const BallMinVelocity = 0.25 // minimal power to make the ball move
 
 const CourtWidth = 200 * BaseUnit // unitss

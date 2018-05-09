@@ -54,6 +54,9 @@ func (v *Vector) Normalize() *Vector {
 }
 
 func (v *Vector) SetLength(length float64) *Vector {
+	if length == 0 {
+		panic("vector can not have zero length")
+	}
 	v.Scale(length / v.Length())
 	return v
 }
