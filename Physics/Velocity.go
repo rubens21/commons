@@ -1,6 +1,9 @@
 package Physics
 
-import "fmt"
+import (
+	"fmt"
+	"math"
+)
 
 type Velocity struct {
 	Direction *Vector  `json:"direction"`
@@ -25,8 +28,12 @@ func (v *Velocity) Target(from Point) Point {
 	if v.Speed == 0 {
 		return from
 	} else {
-		v.Direction.SetLength(v.Speed)
-		return v.Direction.TargetFrom(from)
+		speedX := v.Speed * v.Direction.Cos()
+		speedY := v.Speed * v.Direction.Sin()
+		return Point{
+			PosX: from.PosX + int(math.Round(speedX)),
+			PosY: from.PosY + int(math.Round(speedY)),
+		}
 	}
 }
 
