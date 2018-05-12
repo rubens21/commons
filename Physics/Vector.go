@@ -96,6 +96,10 @@ func (v *Vector) Angle() float64 {
 	return math.Acos(v.Cos())
 }
 
+func (v *Vector) AngleDegrees() float64 {
+	return math.Acos(v.Cos()) * 180 / math.Pi
+}
+
 func (v *Vector) OppositeAngle() float64 {
 	return math.Acos(v.Cos())
 }
