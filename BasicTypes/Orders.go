@@ -12,14 +12,12 @@ type Order struct {
 	Data  interface{}     `json:"data"`
 }
 
-type OrderMove struct {
+type MoveOrderData struct {
 	Velocity Physics.Velocity `json:"velocity"`
 }
 
-type OrderKick struct {
+type KickOrderData struct {
 	Velocity Physics.Velocity `json:"velocity"`
-}
-type OrderCatch struct {
 }
 
 
@@ -30,16 +28,12 @@ const (
 	CATCH OrderType = "CATCH" // I'll try to catch the ball of the player
 )
 
-func (o *Order) GetOrderMove() OrderMove {
-	return o.Data.(OrderMove)
+func (o *Order) GetMoveOrderData() MoveOrderData {
+	return o.Data.(MoveOrderData)
 }
 
-func (o *Order) GetOrderKick() OrderKick {
-	return o.Data.(OrderKick)
-}
-
-func (o *Order) GetOrderCatch() OrderCatch {
-	return o.Data.(OrderCatch)
+func (o *Order) GetKickOrderData() KickOrderData {
+	return o.Data.(KickOrderData)
 }
 
 func (o *Order) UnmarshalJSON(b []byte) error {
@@ -54,11 +48,11 @@ func (o *Order) UnmarshalJSON(b []byte) error {
 	o.Type = tmp.Type
 	switch {
 	case tmp.Type == MOVE:
-		var mov OrderMove
+		var mov MoveOrderData
 		err = json.Unmarshal(tmp.Data, &mov)
 		o.Data = mov
 	case tmp.Type == KICK:
-		var mov OrderKick
+		var mov KickOrderData
 		err = json.Unmarshal(tmp.Data, &mov)
 		o.Data = mov
 	case tmp.Type == CATCH:

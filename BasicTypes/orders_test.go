@@ -13,7 +13,7 @@ func createMoveOrder(from Physics.Point, to Physics.Point, speed float64) Order 
 	vec.Speed = speed
 	return Order{
 		Type: MOVE,
-		Data: OrderMove{vec},
+		Data: MoveOrderData{vec},
 	}
 }
 
@@ -23,7 +23,7 @@ func createkickOrder(from Physics.Point, to Physics.Point, speed float64) Order 
 	vec.Speed = speed
 	return Order{
 		Type: KICK,
-		Data: OrderKick{vec},
+		Data: KickOrderData{vec},
 	}
 }
 
@@ -46,7 +46,7 @@ func TestUnmarshalMoveOrder(t *testing.T) {
 		t.Errorf("Fail on unmarshal order: %s", err.Error())
 	} else {
 		assert.Equal(t, order.Type, MOVE)
-		moveOrder := order.GetOrderMove()
+		moveOrder := order.GetMoveOrderData()
 		assert.Equal(t, float64(50), moveOrder.Velocity.Speed)
 		assert.Equal(t, float64(5.0), moveOrder.Velocity.Direction.GetX())
 		assert.Equal(t, float64(-14), moveOrder.Velocity.Direction.GetY())
@@ -72,7 +72,7 @@ func TestUnmarshalKickOrder(t *testing.T) {
 		t.Errorf("Fail on unmarshal order: %s", err.Error())
 	} else {
 		assert.Equal(t, order.Type, KICK)
-		kickOrder := order.GetOrderKick()
+		kickOrder := order.GetKickOrderData()
 		assert.Equal(t, float64(50), kickOrder.Velocity.Speed)
 		assert.Equal(t, float64(5.0), kickOrder.Velocity.Direction.GetX())
 		assert.Equal(t, float64(-14), kickOrder.Velocity.Direction.GetY())
