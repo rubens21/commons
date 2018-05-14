@@ -4,18 +4,20 @@ import (
 	"testing"
 	"github.com/maketplay/commons/Physics"
 	"math"
+	"github.com/maketplay/commons/Units"
+	"github.com/lix/test1/Game"
 )
 
 func TestColisionDectection(t *testing.T) {
 	elementA := Physics.Element{
 		Size:     9,
 		Coords:   Physics.Point{},
-		Velocity: Physics.NewZeroedVelocity(),
+		Velocity: Physics.NewZeroedVelocity(*Physics.NewVector(Units.CourtCenter, Game.HOME_TEAM_GOALCENTER).Normalize()),
 	}
 	elementB := Physics.Element{
 		Size:     12,
 		Coords:   Physics.Point{PosX: 50},
-		Velocity: Physics.NewZeroedVelocity()}
+		Velocity: Physics.NewZeroedVelocity(*Physics.NewVector(Units.CourtCenter, Game.HOME_TEAM_GOALCENTER).Normalize())}
 
 	elementsBodySpace := float64(elementB.Size+elementA.Size) / 2
 

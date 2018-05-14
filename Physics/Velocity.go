@@ -10,17 +10,16 @@ type Velocity struct {
 	Speed     float64 `json:"speed"`
 }
 
-func NewZeroedVelocity() Velocity {
+func NewZeroedVelocity(direction Vector) Velocity {
 	s := Velocity{}
-	s.Direction = new(Vector)
+	s.Direction = &direction
 	s.Speed = 0
 	return s
 }
 
 func (v *Velocity) Copy() Velocity {
-	copyS := NewZeroedVelocity()
+	copyS := NewZeroedVelocity(*v.Direction.Copy())
 	copyS.Speed = v.Speed
-	copyS.Direction = v.Direction.Copy()
 	return copyS
 }
 

@@ -14,6 +14,9 @@ func NewVector(from Point, to Point) *Vector {
 	v := new(Vector)
 	v.x = float64(to.PosX) - float64(from.PosX)
 	v.y = float64(to.PosY) - float64(from.PosY)
+	if v.x == 0 && v.y == 0 {
+		panic("vector can not have zero length")
+	}
 	return v
 }
 
@@ -28,6 +31,7 @@ func (v *Vector) MarshalJSON() ([]byte, error) {
 	return json.Marshal(map[string]interface{}{
 		"x": v.x,
 		"y": v.y,
+		"ang": v.AngleDegrees(),
 	})
 }
 
@@ -97,7 +101,13 @@ func (v *Vector) Angle() float64 {
 }
 
 func (v *Vector) AngleDegrees() float64 {
-	return math.Acos(v.Cos()) * 180 / math.Pi
+	angX := math.Acos(v.Cos()) * 180 / math.Pi
+
+	if v.y < 0 {
+		angX *= -1
+	}
+	return angX
+
 }
 
 func (v *Vector) OppositeAngle() float64 {
@@ -105,7 +115,7 @@ func (v *Vector) OppositeAngle() float64 {
 }
 
 func (v *Vector) Length() float64 {
-	return math.Hypot(float64(v.x), float64(v.y))
+	return math.Hypot(v.x, v.y)
 }
 
 func (v *Vector) Add(vector *Vector) *Vector {
