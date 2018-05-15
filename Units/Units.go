@@ -11,16 +11,15 @@ const AwayTeam TeamPlace = "away"
 const BaseUnit = 100
 const PlayerSize = 4 * BaseUnit
 const BallSize = 2 * BaseUnit
-const BallMinVelocity = 0.25 // minimal power to make the ball move
+const BallMinSpeed = 0.5 * BaseUnit // minimal power to make the ball move
 
 const CourtWidth = 200 * BaseUnit // unitss
 const CourtHeight = 100 * BaseUnit // units
 
 
-const BallSlowerRatio = 0.70                                 // ratio value for slowing the ball
-const PlayerMaxSpeed = 5.0 * BaseUnit                        // unit/lance
-const BallMaxSpeed = 20.0 * BaseUnit                         // units/lance
-const DistanceCatchBall = float64(PlayerSize+BallSize) * 0.6 // units float
+const BallDeceleration = 4 * BaseUnit // ratio value for slowing the ball
+const PlayerMaxSpeed = 5.0 * BaseUnit // unit/lance
+const BallMaxSpeed = 20.0 * BaseUnit  // units/lance
 
 var HomeTeamGoalCenter = Physics.Point{0, CourtHeight / 2}
 var AwayTeamGoalCenter = Physics.Point{CourtWidth, CourtHeight / 2}
