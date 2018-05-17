@@ -37,8 +37,15 @@ func (v *Velocity) Target(from Point) Point {
 }
 
 func (v *Velocity) Add(velocity Velocity) {
-	v.Speed += velocity.Speed
-	v.Direction.Add(velocity.Direction)
+	v.Direction.Normalize()
+	copied := velocity.Copy()
+	copied.Direction.Normalize()
+	copied.Direction.SetLength(copied.Speed)
+
+	v.Direction.SetLength(v.Speed)
+	v.Direction.Add(copied.Direction)
+	v.Speed = v.Direction.Length()
+	v.Direction.Normalize()
 }
 
 func (v *Velocity) String() string {

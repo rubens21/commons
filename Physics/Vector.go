@@ -29,8 +29,8 @@ func (v Vector) Copy() *Vector {
 
 func (v *Vector) MarshalJSON() ([]byte, error) {
 	return json.Marshal(map[string]interface{}{
-		"x": v.x,
-		"y": v.y,
+		"x":   v.x,
+		"y":   v.y,
 		"ang": v.AngleDegrees(),
 	})
 }
@@ -74,7 +74,6 @@ func (v *Vector) SetY(y float64) *Vector {
 	v.y = y
 	return v
 }
-
 
 func (v *Vector) Invert() *Vector {
 	v.x = -v.x
@@ -130,6 +129,7 @@ func (v *Vector) TargetFrom(point Point) Point {
 		point.PosY + int(math.Round(v.y)),
 	}
 }
+
 func (v *Vector) GetX() float64 {
 	return v.x
 }
@@ -138,6 +138,23 @@ func (v *Vector) GetY() float64 {
 }
 
 func (v *Vector) IsEqualTo(b *Vector) bool {
-	return v.y == b.y && v.x == b.y
+	copyMe := v.Copy().Normalize()
+	copyOther := b.Copy().Normalize()
+	return copyMe.y == copyOther.y && copyMe.x == copyOther.y
+}
+
+func (v *Vector) AngleWith(b *Vector) float64 {
+//http://onlinemschool.com/math/assistance/vector/angl/
+	copyMe := v.Copy().Normalize()
+	copyOther := b.Copy().Normalize()
+
+
+	dotProduct := (copyMe.x * copyOther.x) + (copyMe.y * copyOther.y)
+	cos := dotProduct / (copyMe.Length() * copyOther.Length())
+	ang := math.Round(math.Acos(cos) * (180 / math.Pi) * 100) / 100
+	if copyMe.y > copyOther.y {
+		ang *= -1
+	}
+	return ang
 }
 
