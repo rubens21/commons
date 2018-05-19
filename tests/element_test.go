@@ -11,12 +11,12 @@ func TestColisionDectection(t *testing.T) {
 	elementA := Physics.Element{
 		Size:     9,
 		Coords:   Physics.Point{},
-		Velocity: Physics.NewZeroedVelocity(*Physics.NewVector(Units.CourtCenter, Game.HOME_TEAM_GOALCENTER).Normalize()),
+		Velocity: Physics.NewZeroedVelocity(*Physics.NewVector(Units.CourtCenter, Units.HomeTeamGoalCenter).Normalize()),
 	}
 	elementB := Physics.Element{
 		Size:     12,
 		Coords:   Physics.Point{PosX: 50},
-		Velocity: Physics.NewZeroedVelocity(*Physics.NewVector(Units.CourtCenter, Game.HOME_TEAM_GOALCENTER).Normalize())}
+		Velocity: Physics.NewZeroedVelocity(*Physics.NewVector(Units.CourtCenter, Units.HomeTeamGoalCenter).Normalize())}
 
 	elementsBodySpace := float64(elementB.Size+elementA.Size) / 2
 
