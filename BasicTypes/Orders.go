@@ -2,7 +2,7 @@ package BasicTypes
 
 import (
 	"encoding/json"
-	"github.com/maketplay/commons/Physics"
+	"github.com/makeitplay/commons/Physics"
 	"github.com/pkg/errors"
 	"fmt"
 )

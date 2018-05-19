@@ -2,7 +2,7 @@ package BasicTypes
 
 import (
 	"testing"
-	"github.com/maketplay/commons/Physics"
+	"github.com/makeitplay/commons/Physics"
 	"encoding/json"
 	"github.com/stretchr/testify/assert"
 )

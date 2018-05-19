@@ -1,6 +1,6 @@
 package Units
 
-import "github.com/maketplay/commons/Physics"
+import "github.com/makeitplay/commons/Physics"
 
 type TeamPlace string
 

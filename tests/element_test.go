@@ -2,10 +2,9 @@ package tests
 
 import (
 	"testing"
-	"github.com/maketplay/commons/Physics"
+	"github.com/makeitplay/commons/Physics"
 	"math"
-	"github.com/maketplay/commons/Units"
-	"github.com/lix/test1/Game"
+	"github.com/makeitplay/commons/Units"
 )
 
 func TestColisionDectection(t *testing.T) {

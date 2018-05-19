@@ -1,8 +1,8 @@
 package BasicTypes
 
 import (
-	"github.com/maketplay/commons/Units"
-	"github.com/maketplay/commons/Physics"
+	"github.com/makeitplay/commons/Units"
+	"github.com/makeitplay/commons/Physics"
 )
 
 type MsgType string
