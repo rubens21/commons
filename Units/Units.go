@@ -24,7 +24,7 @@ const BallMaxSpeed = 20.0 * BaseUnit  // units/lance
 var HomeTeamGoalCenter = Physics.Point{0, CourtHeight / 2}
 var AwayTeamGoalCenter = Physics.Point{CourtWidth, CourtHeight / 2}
 var CourtCenter = Physics.Point{CourtWidth / 2, CourtHeight / 2}
-const GoalWidth = PlayerMaxSpeed * 4
+const GoalWidth = 24 * BaseUnit
 
 type PlayerNumber string
 

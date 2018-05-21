@@ -71,7 +71,7 @@ func TestColisionDectection(t *testing.T) {
 	for _, testCase := range input {
 		elementA.Coords = testCase.A
 		elementB.Coords = testCase.B
-		collide, dist := elementA.HasCollide(&elementB)
+		collide, dist := elementA.HasCollided(&elementB)
 		if collide != testCase.Collid {
 			if testCase.Collid {
 				t.Errorf("%s: A and B should had collide. Error dist: %f", testCase.Name, dist)
@@ -90,7 +90,7 @@ func TestColisionDectection(t *testing.T) {
 	for _, testCase := range input {
 		elementA.Coords = testCase.B
 		elementB.Coords = testCase.A
-		collide, dist := elementA.HasCollide(&elementB)
+		collide, dist := elementA.HasCollided(&elementB)
 		if collide != testCase.Collid {
 			if testCase.Collid {
 				t.Errorf("%s: A and B should had collide. Error dist: %f", testCase.Name, dist)

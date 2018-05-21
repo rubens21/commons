@@ -144,17 +144,21 @@ func (v *Vector) IsEqualTo(b *Vector) bool {
 }
 
 func (v *Vector) AngleWith(b *Vector) float64 {
-//http://onlinemschool.com/math/assistance/vector/angl/
+	//http://onlinemschool.com/math/assistance/vector/angl/
 	copyMe := v.Copy().Normalize()
 	copyOther := b.Copy().Normalize()
 
-
 	dotProduct := (copyMe.x * copyOther.x) + (copyMe.y * copyOther.y)
 	cos := dotProduct / (copyMe.Length() * copyOther.Length())
-	ang := math.Round(math.Acos(cos) * (180 / math.Pi) * 100) / 100
+	ang := math.Round(math.Acos(cos)*(180/math.Pi)*100) / 100
 	if copyMe.y > copyOther.y {
 		ang *= -1
 	}
 	return ang
+}
+
+func (v *Vector) IsObstacle(from Point, obstacle Point) bool {
+	to := v.TargetFrom(from)
+	return from.DistanceTo(obstacle) + obstacle.DistanceTo(to) == from.DistanceTo(to)
 }
 
