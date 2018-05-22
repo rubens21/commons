@@ -52,7 +52,7 @@ func (v *Vector) UnmarshalJSON(b []byte) error {
 func (v *Vector) Normalize() *Vector {
 	length := v.Length()
 	if length > 0 {
-		v.Scale(1 / length)
+		v.Scale(100 / length)
 	}
 	return v
 }
@@ -159,6 +159,7 @@ func (v *Vector) AngleWith(b *Vector) float64 {
 
 func (v *Vector) IsObstacle(from Point, obstacle Point) bool {
 	to := v.TargetFrom(from)
-	return from.DistanceTo(obstacle) + obstacle.DistanceTo(to) == from.DistanceTo(to)
+
+	return math.Round(from.DistanceTo(obstacle) + obstacle.DistanceTo(to) - from.DistanceTo(to)) < 0.1
 }
 
