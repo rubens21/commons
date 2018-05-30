@@ -9,6 +9,8 @@ type MsgType string
 
 type OrderType string
 
+type PlayerNumber string
+
 const (
 	// msg type
 	ORDER        MsgType = "ORDER"        // just started
@@ -22,6 +24,13 @@ type State string
 
 
 type PlayerSpecifications struct {
-	Number Units.PlayerNumber
+	Number PlayerNumber
 	InitialCoords Physics.Point
+}
+
+type Goal struct {
+	Center Physics.Point
+	Place Units.TeamPlace
+	TopPole Physics.Point
+	BottomPole Physics.Point
 }

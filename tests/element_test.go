@@ -5,18 +5,19 @@ import (
 	"github.com/makeitplay/commons/Physics"
 	"math"
 	"github.com/makeitplay/commons/Units"
+	"github.com/makeitplay/commons"
 )
 
 func TestColisionDectection(t *testing.T) {
 	elementA := Physics.Element{
 		Size:     9,
 		Coords:   Physics.Point{},
-		Velocity: Physics.NewZeroedVelocity(*Physics.NewVector(Units.CourtCenter, Units.HomeTeamGoalCenter).Normalize()),
+		Velocity: Physics.NewZeroedVelocity(*Physics.NewVector(Units.CourtCenter, commons.HomeTeamGoal.Center).Normalize()),
 	}
 	elementB := Physics.Element{
 		Size:     12,
 		Coords:   Physics.Point{PosX: 50},
-		Velocity: Physics.NewZeroedVelocity(*Physics.NewVector(Units.CourtCenter, Units.HomeTeamGoalCenter).Normalize())}
+		Velocity: Physics.NewZeroedVelocity(*Physics.NewVector(Units.CourtCenter, commons.HomeTeamGoal.Center).Normalize())}
 
 	elementsBodySpace := float64(elementB.Size+elementA.Size) / 2
 
