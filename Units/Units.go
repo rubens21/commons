@@ -24,7 +24,9 @@ const BallDeceleration = 3 * BaseUnit // ratio value for slowing the ball
 const BallMaxSpeed = 20.0 * BaseUnit  // units/lance
 const BallMinSpeed = 0.05 * BaseUnit // minimal power to make the ball move
 
-const GoalWidth = 28 * BaseUnit
+const GoalWidth = 30 * BaseUnit
 const GoalMinY = (CourtHeight - GoalWidth) / 2
 const GoalMaxY = GoalMinY + GoalWidth
-const GoalZoneRange = 22 * BaseUnit
+const GoalZoneRange = 14 * BaseUnit
+
+const GoalKeeperJumpLength = 2 * BaseUnit
