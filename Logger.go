@@ -23,7 +23,7 @@ func LogNotice(message string, a ...interface{})  {
 	Log(message, a...)
 }
 
-func LogAnn(message string, a ...interface{})  {
+func LogBroadcast(message string, a ...interface{})  {
 	color.Set(color.FgHiGreen)
 	defer color.Unset() // Use it in your function
 	Log(message, a...)
