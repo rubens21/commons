@@ -7,6 +7,7 @@ type Task struct {
 	task        func(*Task)
 	stopchan    chan struct{}
 	running 	bool
+	stopRequested 	bool
 }
 
 func NewTask(task func(*Task)) *Task {
@@ -21,7 +22,6 @@ func (t *Task) Start()  {
 	go func(){ // work in background
 		// TODO: do setup work
 		defer func(){
-			//bug! It does not work!
 			if t.OnStop != nil {
 				t.OnStop(t)
 			}
@@ -38,6 +38,11 @@ func (t *Task) Start()  {
 	}()
 }
 
-func (t *Task) Stop()  {
+func (t *Task) RequestStop()  {
+	t.stopRequested = true
 	close(t.stopchan)  // tell it to stop
+}
+
+func (t *Task) StopRequested() bool {
+	return t.stopRequested
 }
