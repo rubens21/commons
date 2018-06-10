@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"encoding/json"
 	"github.com/makeitplay/commons"
+	"sync"
 )
 
 type Channel struct {
@@ -17,11 +18,13 @@ type Channel struct {
 	listenerTask   *commons.Task
 	onMessage      func(bytes []byte)
 	connectionOpen bool
+	mu sync.Mutex
 }
 
 func NewTalkChannel(url url.URL, playerSpec BasicTypes.PlayerSpecifications) *Channel {
 	c := Channel{}
 	c.playerSpec = playerSpec
+	commons.LogDebug("Try include player %s at %v", c.playerSpec.Number, c.playerSpec.InitialCoords)
 	c.urlConnection = url
 	return &c
 }
@@ -64,8 +67,11 @@ func (c *Channel) defineListenerTask() {
 				commons.LogWarning("Connection lost: %s", err)
 			}
 		}()
+		c.mu.Lock()
+		defer c.mu.Unlock()
 		msgType, message, err := c.ws.ReadMessage()
 		if msgType == -1 {
+			commons.LogError("Msg error: %s %s", msgType, err)
 			task.RequestStop()
 			return
 		} else if err != nil {
