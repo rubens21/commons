@@ -39,10 +39,15 @@ func (t *Task) Start()  {
 }
 
 func (t *Task) RequestStop()  {
-	t.stopRequested = true
-	close(t.stopchan)  // tell it to stop
+	if !t.stopRequested {
+		t.stopRequested = true
+		close(t.stopchan)  // tell it to stop
+	}
 }
 
 func (t *Task) StopRequested() bool {
 	return t.stopRequested
+}
+func (t *Task) IsRunning() bool {
+	return t.running
 }
