@@ -147,5 +147,5 @@ func TestElement_VectorCollides(t *testing.T) {
 
 	vecB.SetLength(50)
 	collisionPoint = element.VectorCollides(*vecB, Point{0, 0}, 0.0)
-	assert.Equal(t, &Point{18, 18}, collisionPoint)
+	assert.Equal(t, &Point{16, 16}, collisionPoint)
 }

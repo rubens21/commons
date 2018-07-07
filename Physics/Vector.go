@@ -123,6 +123,12 @@ func (v *Vector) Add(vector *Vector) *Vector {
 	return v
 }
 
+func (v *Vector) Sub(vector *Vector) *Vector {
+	v.x -= vector.x
+	v.y -= vector.y
+	return v
+}
+
 func (v *Vector) TargetFrom(point Point) Point {
 	return Point{
 		point.PosX + int(math.Round(v.x)),
@@ -159,7 +165,8 @@ func (v *Vector) AngleWith(b *Vector) float64 {
 
 func (v *Vector) IsObstacle(from Point, obstacle Point) bool {
 	to := v.TargetFrom(from)
-
-	return math.Round(from.DistanceTo(obstacle) + obstacle.DistanceTo(to) - from.DistanceTo(to)) < 0.1
+	a := from.DistanceTo(obstacle)
+	b := obstacle.DistanceTo(to)
+	hypo := from.DistanceTo(to)
+	return math.Round(a+b-hypo) < 0.1
 }
-

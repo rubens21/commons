@@ -67,6 +67,7 @@ func (c *Channel) defineListenerTask() {
 				commons.LogWarning("Connection lost: %s", err)
 			}
 		}()
+
 		c.mu.Lock()
 		defer c.mu.Unlock()
 		msgType, message, err := c.ws.ReadMessage()
@@ -80,6 +81,7 @@ func (c *Channel) defineListenerTask() {
 			return
 		} else {
 			c.onMessage(message)
+
 		}
 	})
 	c.listenerTask.OnStop = func(task *commons.Task) {
