@@ -3,6 +3,7 @@ package Physics
 import (
 	"math"
 	"encoding/json"
+	"fmt"
 )
 
 type Vector struct {
@@ -14,9 +15,7 @@ func NewVector(from Point, to Point) *Vector {
 	v := new(Vector)
 	v.x = float64(to.PosX) - float64(from.PosX)
 	v.y = float64(to.PosY) - float64(from.PosY)
-	if v.x == 0 && v.y == 0 {
-		panic("vector can not have zero length")
-	}
+	v.panicIfZeroLength()
 	return v
 }
 
@@ -67,11 +66,13 @@ func (v *Vector) SetLength(length float64) *Vector {
 
 func (v *Vector) SetX(x float64) *Vector {
 	v.x = x
+	v.panicIfZeroLength()
 	return v
 }
 
 func (v *Vector) SetY(y float64) *Vector {
 	v.y = y
+	v.panicIfZeroLength()
 	return v
 }
 
@@ -82,6 +83,9 @@ func (v *Vector) Invert() *Vector {
 }
 
 func (v *Vector) Scale(t float64) *Vector {
+	if t == 0 {
+		panic("vector can not have zero length")
+	}
 	v.x *= t
 	v.y *= t
 	return v
@@ -120,12 +124,14 @@ func (v *Vector) Length() float64 {
 func (v *Vector) Add(vector *Vector) *Vector {
 	v.x += vector.x
 	v.y += vector.y
+	v.panicIfZeroLength()
 	return v
 }
 
 func (v *Vector) Sub(vector *Vector) *Vector {
 	v.x -= vector.x
 	v.y -= vector.y
+	v.panicIfZeroLength()
 	return v
 }
 
@@ -144,9 +150,11 @@ func (v *Vector) GetY() float64 {
 }
 
 func (v *Vector) IsEqualTo(b *Vector) bool {
+	fmt.Printf("is %v equal %v\n", v, b)
 	copyMe := v.Copy().Normalize()
 	copyOther := b.Copy().Normalize()
-	return copyMe.y == copyOther.y && copyMe.x == copyOther.y
+	fmt.Printf("is %v equal %v 		?\n", copyMe, copyOther)
+	return copyMe.y == copyOther.y && copyMe.x == copyOther.x
 }
 
 func (v *Vector) AngleWith(b *Vector) float64 {
@@ -169,4 +177,10 @@ func (v *Vector) IsObstacle(from Point, obstacle Point) bool {
 	b := obstacle.DistanceTo(to)
 	hypo := from.DistanceTo(to)
 	return math.Round(a+b-hypo) < 0.1
+}
+
+func (v *Vector) panicIfZeroLength() {
+	if v.x == 0 && v.y == 0 {
+		panic("vector can not have zero length")
+	}
 }
