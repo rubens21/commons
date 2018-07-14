@@ -1,9 +1,9 @@
 package commons
 
 import (
+	"github.com/fatih/color"
 	"bytes"
 	"fmt"
-	"github.com/fatih/color"
 )
 
 var NickName = "Unkown"
