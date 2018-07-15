@@ -24,7 +24,6 @@ type Channel struct {
 func NewTalkChannel(url url.URL, playerSpec BasicTypes.PlayerSpecifications) *Channel {
 	c := Channel{}
 	c.playerSpec = playerSpec
-	commons.LogDebug("Try include player %s at %v", c.playerSpec.Number, c.playerSpec.InitialCoords)
 	c.urlConnection = url
 	return &c
 }
