@@ -20,7 +20,7 @@ var CourtCenter = Physics.Point{CourtWidth / 2, CourtHeight / 2}
 const CourtHeight = 100 * BaseUnit // units
 
 const BallSize = 2 * BaseUnit
-const BallDeceleration = 3 * BaseUnit // ratio value for slowing the ball
+const BallDeceleration = 0.4 * BaseUnit // ratio value for slowing the ball
 const BallMaxSpeed = 8 * BaseUnit  // units/lance
 const BallMinSpeed = 0.05 * BaseUnit // minimal power to make the ball move
 const BallTimeInGoalZone = 6 //turns
@@ -30,4 +30,4 @@ const GoalMinY = (CourtHeight - GoalWidth) / 2
 const GoalMaxY = GoalMinY + GoalWidth
 const GoalZoneRange = 14 * BaseUnit
 
-const GoalKeeperJumpLength = 2 * BaseUnit
+const GoalKeeperJumpLength = 4 * BaseUnit

@@ -3,7 +3,6 @@ package Physics
 import (
 	"math"
 	"encoding/json"
-	"fmt"
 )
 
 type Vector struct {
@@ -150,11 +149,7 @@ func (v *Vector) GetY() float64 {
 }
 
 func (v *Vector) IsEqualTo(b *Vector) bool {
-	fmt.Printf("is %v equal %v\n", v, b)
-	copyMe := v.Copy().Normalize()
-	copyOther := b.Copy().Normalize()
-	fmt.Printf("is %v equal %v 		?\n", copyMe, copyOther)
-	return copyMe.y == copyOther.y && copyMe.x == copyOther.x
+	return b.y == v.y && b.x == v.x
 }
 
 func (v *Vector) AngleWith(b *Vector) float64 {
