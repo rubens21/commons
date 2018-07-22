@@ -80,7 +80,6 @@ func (c *Channel) defineListenerTask() {
 			return
 		} else {
 			c.onMessage(message)
-
 		}
 	})
 	c.listenerTask.OnStop = func(task *commons.Task) {
@@ -112,7 +111,7 @@ func (c *Channel) defineWebsocketCloseHandler() {
 		if code == websocket.CloseNormalClosure {
 			commons.Log("Connection closed by the server")
 		} else {
-			commons.LogError("Connection lost")
+			commons.LogError("Connection abnormal closed: %d-%s", code, text)
 		}
 		return nil
 	})
