@@ -94,8 +94,8 @@ func TestElement_LineCollides(t *testing.T) {
 			2,
 			6.0,
 			true,
-			&Point{-3, -4},
-			&Point{3, 4},
+			&Point{-5, -6},
+			&Point{5, 6},
 		},
 	}
 
@@ -120,32 +120,39 @@ func TestElement_VectorCollides(t *testing.T) {
 	element := Element{}
 	element.Size = 10
 	element.Coords = Point{0, 0}
+	//radios: 7.07
 	var collisionPoint *Point
 
 	vecA := NewVector(Point{}, Point{12,0})
 
+	// no colision horizontal
 	assert.Nil(t, element.VectorCollides(*vecA, Point{-20, 0}, 0.0))
 	assert.Nil(t, element.VectorCollides(*vecA, Point{13, 0}, 0.0))
 	assert.Nil(t, element.VectorCollides(*vecA, Point{0, 11}, 0.0))
 	assert.Nil(t, element.VectorCollides(*vecA, Point{0, -5}, 0.0))
 
+	//very close at the vector end
 	assert.Nil(t, element.VectorCollides(*vecA, Point{-17, 0}, 0.0))
-
-
+	//very close at the vector begining
+	assert.Nil(t, element.VectorCollides(*vecA, Point{5, 0}, 0.0))
+	//
 
 	collisionPoint = element.VectorCollides(*vecA, Point{-11, 0}, 0.0)
 	assert.Equal(t, &Point{-5, 0}, collisionPoint)
 
-	collisionPoint = element.VectorCollides(*vecA, Point{5, 0}, 0.0)
+	collisionPoint = element.VectorCollides(*vecA, Point{-11, 0}, 5)
+	assert.Equal(t, &Point{-10, 0}, collisionPoint)
+
+	collisionPoint = element.VectorCollides(*vecA, Point{0, 0}, 0.0)
 	assert.Equal(t, &Point{5, 0}, collisionPoint)
-
-
+	////
+	//
 	element.Coords = Point{20, 20}
 
 	vecB := NewVector(Point{}, Point{10,10})
-
-
 	vecB.SetLength(50)
+
+
 	collisionPoint = element.VectorCollides(*vecB, Point{0, 0}, 0.0)
 	assert.Equal(t, &Point{16, 16}, collisionPoint)
 }
