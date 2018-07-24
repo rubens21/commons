@@ -98,22 +98,27 @@ func (v *Vector) Cos() float64 {
 	return v.x / v.Length()
 }
 
+// Angle returns the angle of the vector with the X axis
 func (v *Vector) Angle() float64 {
-	return math.Acos(v.Cos())
+	return math.Atan2(v.y, v.x)
 }
 
 func (v *Vector) AngleDegrees() float64 {
-	angX := math.Acos(v.Cos()) * 180 / math.Pi
-
-	if v.y < 0 {
-		angX *= -1
-	}
-	return angX
-
+	return v.Angle() * 180 / math.Pi
 }
 
 func (v *Vector) OppositeAngle() float64 {
 	return math.Acos(v.Cos())
+}
+
+func (v *Vector) AddAngleDegree(degree float64) *Vector {
+	newAngle := v.AngleDegrees() + degree
+	newAngle *= math.Pi / 180
+
+	length := v.Length()
+	v.x = length * math.Cos(newAngle)
+	v.y = length * math.Sin(newAngle)
+	return v
 }
 
 func (v *Vector) Length() float64 {
@@ -144,6 +149,7 @@ func (v *Vector) TargetFrom(point Point) Point {
 func (v *Vector) GetX() float64 {
 	return v.x
 }
+
 func (v *Vector) GetY() float64 {
 	return v.y
 }
