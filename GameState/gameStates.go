@@ -1,6 +1,6 @@
 package GameState
 
-import "github.com/maketplay/commons/BasicTypes"
+import "github.com/makeitplay/commons/BasicTypes"
 
 type State BasicTypes.State
 

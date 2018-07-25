@@ -1,8 +1,6 @@
 package commons
 
-import (
-	"github.com/fatih/color"
-)
+import "github.com/fatih/color"
 
 type Cleaner struct {
 	name string
@@ -20,11 +18,11 @@ func RegisterCleaner(name string, callback func(bool)) {
 }
 
 func Cleanup(interrupted bool)  {
-	color.Unset()
 	LogNotice("Cleaning up")
 	for _, cleaner := range cleanerStack {
 		LogInfo("Closing: %s", cleaner.name)
 		cleaner.callback(interrupted)
 	}
 	LogNotice("-- All cleaners done -- ")
+	color.Unset()
 }

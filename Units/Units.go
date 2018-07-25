@@ -1,59 +1,33 @@
 package Units
 
-import "github.com/maketplay/commons/Physics"
+import (
+	"github.com/makeitplay/commons/Physics"
+)
 
 type TeamPlace string
 
 const HomeTeam TeamPlace = "home"
 const AwayTeam TeamPlace = "away"
-const PlayerSize = 10
-const BallSize = 5
-const BallMinPower = 0.25 // minimal power to make the ball move
-
-const CourtWidth = 200  // unitss
-const CourtHeight = 100 // units
 
 
-const BallSlowerRatio = 0.70                                 // ratio value for slowing the ball
-const PlayerSpeed = 5.0                                      // unit/lance
-const BallSpeed = 20.0                                       // units/lance
-const DistanceCatchBall = float64(PlayerSize+BallSize) * 0.6 // units float
+const BaseUnit = 100
 
-var HomeTeamGoalcenter = Physics.Point{0, CourtHeight / 2}
-var AwayTeamGoalcenter = Physics.Point{CourtWidth, CourtHeight / 2}
-const GoalWidth = PlayerSpeed * 4
+const PlayerSize = 4 * BaseUnit
+const PlayerMaxSpeed = 2.5 * BaseUnit // unit/lance
 
-type PlayerNumber string
+const CourtWidth = 200 * BaseUnit // unitss
+var CourtCenter = Physics.Point{CourtWidth / 2, CourtHeight / 2}
+const CourtHeight = 100 * BaseUnit // units
 
-const (
-	PositionA PlayerNumber = "1"
-	PositionB PlayerNumber = "2"
-	PositionC PlayerNumber = "3"
-	PositionD PlayerNumber = "4"
-	PositionE PlayerNumber = "5"
-)
+const BallSize = 2 * BaseUnit
+const BallDeceleration = 0.4 * BaseUnit // ratio value for slowing the ball
+const BallMaxSpeed = 8.8 * BaseUnit  // units/lance
+const BallMinSpeed = 0.05 * BaseUnit // minimal power to make the ball move
+const BallTimeInGoalZone = 3 * 10 //about 3 seconds
 
-var InitialPostionHomeTeam = map[PlayerNumber]Physics.Point{
-	PositionA: {45,75},
-	PositionB: {45,50},
-	PositionC: {45,25},
-	PositionD: {75,60},
-	PositionE: {75,45},
-}
+const GoalWidth = 30 * BaseUnit
+const GoalMinY = (CourtHeight - GoalWidth) / 2
+const GoalMaxY = GoalMinY + GoalWidth
+const GoalZoneRange = 14 * BaseUnit
 
-var InitialPostionAwayTeam = map[PlayerNumber]Physics.Point{
-	PositionA: {155, 25},
-	PositionB: {155, 50},
-	PositionC: {155, 75},
-	PositionD: {125, 45},
-	PositionE: {125, 60},
-}
-
-// Invert the coords X and Y as in a mirror to found out the same position seen from the away team field
-// Keep in mind that all coords in the field is based on the bottom left corner!
-func MirrorCoordToAway(coords Physics.Point) Physics.Point {
-	return Physics.Point{
-		PosX: CourtWidth - coords.PosX,
-		PosY: CourtHeight - coords.PosY,
-	}
-}
+const GoalKeeperJumpLength = 4 * BaseUnit
