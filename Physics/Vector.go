@@ -14,9 +14,7 @@ func NewVector(from Point, to Point) *Vector {
 	v := new(Vector)
 	v.x = float64(to.PosX) - float64(from.PosX)
 	v.y = float64(to.PosY) - float64(from.PosY)
-	if v.x == 0 && v.y == 0 {
-		panic("vector can not have zero length")
-	}
+	v.panicIfZeroLength()
 	return v
 }
 
@@ -67,11 +65,13 @@ func (v *Vector) SetLength(length float64) *Vector {
 
 func (v *Vector) SetX(x float64) *Vector {
 	v.x = x
+	v.panicIfZeroLength()
 	return v
 }
 
 func (v *Vector) SetY(y float64) *Vector {
 	v.y = y
+	v.panicIfZeroLength()
 	return v
 }
 
@@ -82,6 +82,9 @@ func (v *Vector) Invert() *Vector {
 }
 
 func (v *Vector) Scale(t float64) *Vector {
+	if t == 0 {
+		panic("vector can not have zero length")
+	}
 	v.x *= t
 	v.y *= t
 	return v
@@ -95,22 +98,27 @@ func (v *Vector) Cos() float64 {
 	return v.x / v.Length()
 }
 
+// Angle returns the angle of the vector with the X axis
 func (v *Vector) Angle() float64 {
-	return math.Acos(v.Cos())
+	return math.Atan2(v.y, v.x)
 }
 
 func (v *Vector) AngleDegrees() float64 {
-	angX := math.Acos(v.Cos()) * 180 / math.Pi
-
-	if v.y < 0 {
-		angX *= -1
-	}
-	return angX
-
+	return v.Angle() * 180 / math.Pi
 }
 
 func (v *Vector) OppositeAngle() float64 {
 	return math.Acos(v.Cos())
+}
+
+func (v *Vector) AddAngleDegree(degree float64) *Vector {
+	newAngle := v.AngleDegrees() + degree
+	newAngle *= math.Pi / 180
+
+	length := v.Length()
+	v.x = length * math.Cos(newAngle)
+	v.y = length * math.Sin(newAngle)
+	return v
 }
 
 func (v *Vector) Length() float64 {
@@ -120,6 +128,14 @@ func (v *Vector) Length() float64 {
 func (v *Vector) Add(vector *Vector) *Vector {
 	v.x += vector.x
 	v.y += vector.y
+	v.panicIfZeroLength()
+	return v
+}
+
+func (v *Vector) Sub(vector *Vector) *Vector {
+	v.x -= vector.x
+	v.y -= vector.y
+	v.panicIfZeroLength()
 	return v
 }
 
@@ -133,14 +149,13 @@ func (v *Vector) TargetFrom(point Point) Point {
 func (v *Vector) GetX() float64 {
 	return v.x
 }
+
 func (v *Vector) GetY() float64 {
 	return v.y
 }
 
 func (v *Vector) IsEqualTo(b *Vector) bool {
-	copyMe := v.Copy().Normalize()
-	copyOther := b.Copy().Normalize()
-	return copyMe.y == copyOther.y && copyMe.x == copyOther.y
+	return b.y == v.y && b.x == v.x
 }
 
 func (v *Vector) AngleWith(b *Vector) float64 {
@@ -159,7 +174,14 @@ func (v *Vector) AngleWith(b *Vector) float64 {
 
 func (v *Vector) IsObstacle(from Point, obstacle Point) bool {
 	to := v.TargetFrom(from)
-
-	return math.Round(from.DistanceTo(obstacle) + obstacle.DistanceTo(to) - from.DistanceTo(to)) < 0.1
+	a := from.DistanceTo(obstacle)
+	b := obstacle.DistanceTo(to)
+	hypo := from.DistanceTo(to)
+	return math.Round(a+b-hypo) < 0.1
 }
 
+func (v *Vector) panicIfZeroLength() {
+	if v.x == 0 && v.y == 0 {
+		panic("vector can not have zero length")
+	}
+}

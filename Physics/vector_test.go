@@ -3,6 +3,7 @@ package Physics
 import (
 	"testing"
 	"github.com/stretchr/testify/assert"
+	"math"
 )
 
 func TestVector_AngleWith_ZeroDegree(t *testing.T) {
@@ -81,5 +82,39 @@ func TestVector_AngleWith_ZeroDegree(t *testing.T) {
 	}
 
 
+
+}
+
+func TestVector_AddAngle(t *testing.T) {
+	vecA := NewVector(Point{0, 0}, Point{100, 0})
+
+	vecA.AddAngleDegree(90)
+	assert.Equal(t, float64(90), math.Round(vecA.AngleDegrees()))
+	assert.True(t, vecA.x <= 0.00000001)
+	assert.Equal(t, float64(100), vecA.y)
+	assert.Equal(t, float64(100), vecA.Length())
+
+	vecA.AddAngleDegree(90)
+	assert.Equal(t, float64(180), math.Round(vecA.AngleDegrees()))
+	assert.Equal(t, float64(-100), vecA.x)
+	assert.True(t, vecA.y <= 0.00000001)
+	assert.Equal(t, float64(100), vecA.Length())
+
+	vecA.AddAngleDegree(90)
+	assert.Equal(t, float64(-90), math.Round(vecA.AngleDegrees()))
+	assert.True(t, vecA.x <= 0.00000001)
+	assert.Equal(t, float64(-100), vecA.y)
+	assert.Equal(t, float64(100), vecA.Length())
+
+	vecA.AddAngleDegree(90)
+	assert.Equal(t, float64(0), math.Round(vecA.AngleDegrees()))
+	assert.Equal(t, float64(100), vecA.x)
+	assert.True(t, vecA.y <= 0.00000001)
+	assert.Equal(t, float64(100), vecA.Length())
+
+	vecA.AddAngleDegree(45)
+	assert.Equal(t, float64(45), math.Round(vecA.AngleDegrees()))
+	assert.True(t, math.Abs(vecA.y - vecA.x) <= 0.00000001)
+	assert.Equal(t, float64(100), vecA.Length())
 
 }

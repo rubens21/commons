@@ -24,7 +24,6 @@ type Channel struct {
 func NewTalkChannel(url url.URL, playerSpec BasicTypes.PlayerSpecifications) *Channel {
 	c := Channel{}
 	c.playerSpec = playerSpec
-	commons.LogDebug("Try include player %s at %v", c.playerSpec.Number, c.playerSpec.InitialCoords)
 	c.urlConnection = url
 	return &c
 }
@@ -67,6 +66,7 @@ func (c *Channel) defineListenerTask() {
 				commons.LogWarning("Connection lost: %s", err)
 			}
 		}()
+
 		c.mu.Lock()
 		defer c.mu.Unlock()
 		msgType, message, err := c.ws.ReadMessage()
@@ -111,7 +111,7 @@ func (c *Channel) defineWebsocketCloseHandler() {
 		if code == websocket.CloseNormalClosure {
 			commons.Log("Connection closed by the server")
 		} else {
-			commons.LogError("Connection lost")
+			commons.LogError("Connection abnormal closed: %d-%s", code, text)
 		}
 		return nil
 	})

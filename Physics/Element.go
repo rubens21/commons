@@ -58,7 +58,8 @@ func (e *Element) VectorCollides(vector Vector, from Point, margin float64) *Poi
 			var nearestPoint *Point
 			nearestPoint = nil
 
-			distance := vector.Length() + 1//just initializing
+			vectorLength := vector.Length()
+			distance := vectorLength + 1//just initializing
 			if vector.IsObstacle(from, *point1) {
 				distance = from.DistanceTo(*point1)
 				nearestPoint = point1
@@ -67,10 +68,11 @@ func (e *Element) VectorCollides(vector Vector, from Point, margin float64) *Poi
 				distance = from.DistanceTo(*point2)
 				nearestPoint = point2
 			}
-
-			if distance < vector.Length() {
-				return nearestPoint
+			// when the distance is too small or even zero, it means the obstale the right behind the vector
+			if distance < 0.01 || vectorLength - distance < 0.01 {
+				return nil
 			}
+			return nearestPoint
 		}
 	}
 	return nil

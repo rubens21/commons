@@ -37,14 +37,19 @@ func (v *Velocity) Target(from Point) Point {
 }
 
 func (v *Velocity) Add(velocity Velocity) {
-	v.Direction.Normalize()
 	copied := velocity.Copy()
-	copied.Direction.Normalize()
-	copied.Direction.SetLength(copied.Speed)
 
+	copied.Direction.SetLength(copied.Speed)
 	v.Direction.SetLength(v.Speed)
-	v.Direction.Add(copied.Direction)
-	v.Speed = v.Direction.Length()
+	//if the vector is the inverse of the actual, we cannot sum them because they would null each other
+	if copied.Copy().Direction.Invert().IsEqualTo(v.Direction) {
+		v.Direction.Invert()
+		v.Speed = 0
+	} else {
+		v.Direction.Add(copied.Direction)
+		v.Speed = v.Direction.Length()
+	}
+
 	v.Direction.Normalize()
 }
 
