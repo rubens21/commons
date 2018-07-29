@@ -12,13 +12,13 @@ func TestElement_LineCollides(t *testing.T) {
 		b        Point
 		elPos    Point
 		elRadius int
-		maring   float64
+		margin   float64
 
 		expectedCollide bool
 		expectedCol1    *Point
 		expectedCol2    *Point
 	}{
-		"Element axys 0,0 lin in X ": {
+		"Element axis 0,0 lin in X ": {
 			Point{-10, 0},
 			Point{10, 0},
 			Point{0, 0},
@@ -28,7 +28,7 @@ func TestElement_LineCollides(t *testing.T) {
 			&Point{-4, 0},
 			&Point{4, 0},
 		},
-		"Element axys 10,0 lin in X ": {
+		"Element axis 10,0 lin in X ": {
 			Point{-10, 0},
 			Point{10, 0},
 			Point{10, 0},
@@ -38,7 +38,7 @@ func TestElement_LineCollides(t *testing.T) {
 			&Point{6, 0},
 			&Point{14, 0},
 		},
-		"Element axys -10,0 lin in X ": {
+		"Element axis -10,0 lin in X ": {
 			Point{-10, 0},
 			Point{10, 0},
 			Point{-10, 0},
@@ -48,7 +48,7 @@ func TestElement_LineCollides(t *testing.T) {
 			&Point{-14, 0},
 			&Point{-6, 0},
 		},
-		"Element axys 0,5 lin in X ": {
+		"Element axis 0,5 lin in X ": {
 			Point{-10, 0},
 			Point{10, 0},
 			Point{0, 5},
@@ -58,7 +58,7 @@ func TestElement_LineCollides(t *testing.T) {
 			nil,
 			nil,
 		},
-		"Element axys 0,5 lin in 0,5>10,5 ": {
+		"Element axis 0,5 lin in 0,5>10,5 ": {
 			Point{0, 5},
 			Point{10, 5},
 			Point{0, 5},
@@ -68,7 +68,7 @@ func TestElement_LineCollides(t *testing.T) {
 			&Point{-4, 5},
 			&Point{4, 5},
 		},
-		"Element axys 0,9 lin in 0,5>10,5 ": {
+		"Element axis 0,9 lin in 0,5>10,5 ": {
 			Point{0, 5},
 			Point{10, 5},
 			Point{0, 9},
@@ -78,7 +78,7 @@ func TestElement_LineCollides(t *testing.T) {
 			&Point{0, 5},
 			nil,
 		},
-		"Element axys 0,9 lin in 0,2>10,2 ": {
+		"Element axis 0,9 lin in 0,2>10,2 ": {
 			Point{0, 2},
 			Point{10, 2},
 			Point{0, 9},
@@ -105,11 +105,11 @@ func TestElement_LineCollides(t *testing.T) {
 		element.Size = set.elRadius * 2
 		element.Coords = set.elPos
 
-		collid, col1, col2 := element.LineCollides(set.a, set.b, set.maring)
+		collide, col1, col2 := element.LineCollides(set.a, set.b, set.margin)
 		if set.expectedCollide {
-			assert.True(t, collid, title)
+			assert.True(t, collide, title)
 		} else {
-			assert.False(t, collid, title)
+			assert.False(t, collide, title)
 		}
 
 		assert.Equal(t, set.expectedCol1, col1, title)
@@ -126,7 +126,7 @@ func TestElement_VectorCollides(t *testing.T) {
 
 	vecA := NewVector(Point{}, Point{12, 0})
 
-	// no colision horizontal
+	// no collision horizontal
 	assert.Nil(t, element.VectorCollides(*vecA, Point{-20, 0}, 0.0))
 	assert.Nil(t, element.VectorCollides(*vecA, Point{13, 0}, 0.0))
 	assert.Nil(t, element.VectorCollides(*vecA, Point{0, 11}, 0.0))
@@ -134,7 +134,7 @@ func TestElement_VectorCollides(t *testing.T) {
 
 	//very close at the vector end
 	assert.Nil(t, element.VectorCollides(*vecA, Point{-17, 0}, 0.0))
-	//very close at the vector begining
+	//very close at the vector beginning
 	assert.Nil(t, element.VectorCollides(*vecA, Point{5, 0}, 0.0))
 	//
 
@@ -174,11 +174,11 @@ func TestElement_HasCollided(t *testing.T) {
 	elementsBodySpace := float64(elementB.Size+elementA.Size) / 2
 
 	input := []struct {
-		Name   string
-		A      Point
-		B      Point
-		Collid bool
-		Dist   float64
+		Name    string
+		A       Point
+		B       Point
+		Collide bool
+		Dist    float64
 	}{
 		// X
 		{"X1", Point{}, Point{50, 0}, false, float64(50) - elementsBodySpace},
@@ -210,7 +210,7 @@ func TestElement_HasCollided(t *testing.T) {
 		{"D6", Point{}, Point{10, 5}, false, float64(11.1803398875) - elementsBodySpace},
 		{"D7", Point{}, Point{20, 20}, false, float64(28.2842712475) - elementsBodySpace},
 
-		//diagnoal negative
+		//diagonal negative
 		{"D1", Point{}, Point{-2, 5}, true, float64(5.38516480713) - elementsBodySpace},
 		{"D2", Point{}, Point{-5, 9}, true, float64(10.295630141) - elementsBodySpace},
 		{"D3", Point{}, Point{1, -1}, true, float64(1.41421356237) - elementsBodySpace},
@@ -225,8 +225,8 @@ func TestElement_HasCollided(t *testing.T) {
 		elementA.Coords = testCase.A
 		elementB.Coords = testCase.B
 		collide, dist := elementA.HasCollided(&elementB)
-		if collide != testCase.Collid {
-			if testCase.Collid {
+		if collide != testCase.Collide {
+			if testCase.Collide {
 				t.Errorf("%s: A and B should had collide. Error dist: %f", testCase.Name, dist)
 			} else {
 				t.Errorf("%s: A and B should not being colliding. Error dist: %f", testCase.Name, dist)
@@ -244,8 +244,8 @@ func TestElement_HasCollided(t *testing.T) {
 		elementA.Coords = testCase.B
 		elementB.Coords = testCase.A
 		collide, dist := elementA.HasCollided(&elementB)
-		if collide != testCase.Collid {
-			if testCase.Collid {
+		if collide != testCase.Collide {
+			if testCase.Collide {
 				t.Errorf("%s: A and B should had collide. Error dist: %f", testCase.Name, dist)
 			} else {
 				t.Errorf("%s: A and B should not being colliding. Error dist: %f", testCase.Name, dist)

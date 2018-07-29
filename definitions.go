@@ -23,3 +23,6 @@ var AwayTeamGoal = BasicTypes.Goal{
 	TopPole:    Physics.Point{Units.CourtWidth, Units.GoalMaxY},
 	BottomPole: Physics.Point{Units.CourtWidth, Units.GoalMinY},
 }
+
+
+var CourtCenter = Physics.Point{Units.CourtWidth / 2, Units.CourtHeight / 2}

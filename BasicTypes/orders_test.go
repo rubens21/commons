@@ -26,13 +26,13 @@ func createKickOrder(from Physics.Point, to Physics.Point, speed float64) Order 
 }
 
 func TestMarshalMoveOrder(t *testing.T) {
-	order := createMoveOrder(Physics.Point{0, 0}, Physics.Point{5, -14}, 50)
+	order := createMoveOrder(Physics.Point{}, Physics.Point{PosX: 5, PosY: -14}, 50)
 	cont, err := json.Marshal(order)
 	if err != nil {
 		t.Errorf("Fail on marshal order: %s", err.Error())
 	} else {
-		excpec := "{\"order\":\"MOVE\",\"data\":{\"velocity\":{\"direction\":{\"x\":5,\"y\":-14},\"speed\":50}}}"
-		assert.Equal(t, excpec, string(cont))
+		expected := "{\"order\":\"MOVE\",\"data\":{\"velocity\":{\"direction\":{\"x\":5,\"y\":-14},\"speed\":50}}}"
+		assert.Equal(t, expected, string(cont))
 	}
 }
 
@@ -52,14 +52,13 @@ func TestUnmarshalMoveOrder(t *testing.T) {
 }
 
 func TestMarshalKickOrder(t *testing.T) {
-	order := createKickOrder(Physics.Point{0, 0}, Physics.Point{5, -14}, 50)
+	order := createKickOrder(Physics.Point{}, Physics.Point{PosX: 5, PosY: -14}, 50)
 	cont, err := json.Marshal(order)
 	if err != nil {
 		t.Errorf("Fail on marshal order: %s", err.Error())
 	} else {
-		//fmt.Println(string(cont))
-		excpec := "{\"order\":\"KICK\",\"data\":{\"velocity\":{\"direction\":{\"x\":5,\"y\":-14},\"speed\":50}}}"
-		assert.Equal(t, excpec, string(cont))
+		expected := "{\"order\":\"KICK\",\"data\":{\"velocity\":{\"direction\":{\"x\":5,\"y\":-14},\"speed\":50}}}"
+		assert.Equal(t, expected, string(cont))
 	}
 }
 
