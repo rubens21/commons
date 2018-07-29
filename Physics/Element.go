@@ -4,54 +4,42 @@ import (
 	"math"
 )
 
+// Element generalizes the basic attributes of elements in the field
 type Element struct {
+	// Size is the size of the element, important to detect collision
 	Size     int
+	// Coords current position of the element
 	Coords   Point    `json:"position"`
+	// Velocity velocity of the object
 	Velocity Velocity `json:"velocity"`
 }
 
-func (e *Element) MoveTo(coords Point) {
-	e.Coords = coords
-}
-
-func (e *Element) GetCoords() Point {
-	return e.Coords
-}
-
+// IsObstacle detects obstacles within a range
+// for some reason I stopped to use this method, I don't know if it still work @todo test it
 func (e *Element) IsObstacle(target Point, obstacle Point, errMarginDegree float64) (degree float64, inRange bool) {
 	if e.Coords.DistanceTo(obstacle) > e.Coords.DistanceTo(target) {
 		return 0, false
 	} else {
-		/*
-		The angule is calculated based on the diff between the coseno angule of the target and the obstacle.
-		However, this values will always be positive if both are in the same directions (less than 90 degrees
-		of difference).
-		Then, target figure out if the obstacle is on the left or on the right of the route, we have
-		target check if the sin is positive or negative because the sin is base on the Y axis
-		 */
 		vectorTarget := NewVector(e.Coords, target)
 		vectorObstacle := NewVector(e.Coords, obstacle)
-
-		angTarg := math.Acos(vectorTarget.Cos()) * (180 / math.Pi)
-		angObst := math.Acos(vectorObstacle.Cos()) * (180 / math.Pi)
-
-		angDirctionObst := math.Asin(vectorObstacle.Sin()) * (180 / math.Pi)
-
-		diff := angObst - angTarg
-		if angDirctionObst < 0 {
-			diff *= -1
-		}
+		diff := vectorTarget.AngleWith(vectorObstacle)
 		return diff, math.Abs(diff) <= errMarginDegree
 	}
 }
 
+// HasCollided detects if the element has already collided with another one
 func (e *Element) HasCollided(obstacle *Element) (bool, float64) {
 	minDistance := float64(e.Size+obstacle.Size) / 2
+	if e.Coords.DistanceTo(obstacle.Coords) == 0 {
+		return true, float64(e.Size + obstacle.Size)/2
+	}
 	centerDistance := NewVector(e.Coords, obstacle.Coords).Length()
 	realDistance := centerDistance - minDistance
 	return realDistance < 0, realDistance
 }
 
+// VectorCollides detects if a vector will collide with this object
+// @todo probably this method is responsible for the bug reported by the issue #4
 func (e *Element) VectorCollides(vector Vector, from Point, margin float64) *Point {
 	if collide, point1, point2 := e.LineCollides(from, vector.TargetFrom(from), margin); collide {
 		if point2 != nil {
@@ -78,6 +66,7 @@ func (e *Element) VectorCollides(vector Vector, from Point, margin float64) *Poi
 	return nil
 }
 
+// LineCollides detects if a line will collide with this object
 func (e *Element) LineCollides(a, b Point, margin float64) (bool, *Point, *Point) {
 	// Credits: https://stackoverflow.com/a/1088058/2047138
 	c := e.Coords

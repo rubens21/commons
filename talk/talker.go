@@ -11,6 +11,7 @@ import (
 	"sync"
 )
 
+// Channel is meant to make the websocket connection and communication easier.
 type Channel struct {
 	ws             *websocket.Conn
 	playerSpec     BasicTypes.PlayerSpecifications
@@ -21,6 +22,7 @@ type Channel struct {
 	mu             sync.Mutex
 }
 
+// NewTalkChannel creates a new Channel to be used by a player to communicate with the game server
 func NewTalkChannel(url url.URL, playerSpec BasicTypes.PlayerSpecifications) *Channel {
 	c := Channel{}
 	c.playerSpec = playerSpec
@@ -28,10 +30,12 @@ func NewTalkChannel(url url.URL, playerSpec BasicTypes.PlayerSpecifications) *Ch
 	return &c
 }
 
+// Send allow the player to send a ws message to the game server
 func (c *Channel) Send(data []byte) error {
 	return c.ws.WriteMessage(websocket.TextMessage, data)
 }
 
+// OpenConnection opens a new websocket connection and registers the arg function as a listener of the messages sent by the game server
 func (c *Channel) OpenConnection(onMessage func(bytes []byte)) error {
 	c.onMessage = onMessage
 	if err := c.dial(); err != nil {
@@ -91,6 +95,8 @@ func (c *Channel) defineListenerTask() {
 	}
 	c.listenerTask.Start()
 }
+
+// CloseConnection ... guess what it does
 func (c *Channel) CloseConnection() {
 	c.listenerTask.RequestStop()
 	if c.connectionOpen { // trying to avoid panic on writing in a closed connection
