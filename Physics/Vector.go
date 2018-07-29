@@ -29,7 +29,6 @@ func (v *Vector) MarshalJSON() ([]byte, error) {
 	return json.Marshal(map[string]interface{}{
 		"x":   v.x,
 		"y":   v.y,
-		"ang": v.AngleDegrees(),
 	})
 }
 

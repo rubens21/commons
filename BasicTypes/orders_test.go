@@ -8,7 +8,7 @@ import (
 )
 
 func createMoveOrder(from Physics.Point, to Physics.Point, speed float64) Order {
-	vec := Physics.NewZeroedVelocity(*Physics.NewVector(from, to).Normalize())
+	vec := Physics.NewZeroedVelocity(*Physics.NewVector(from, to))
 	vec.Speed = speed
 	return Order{
 		Type: MOVE,
@@ -16,8 +16,8 @@ func createMoveOrder(from Physics.Point, to Physics.Point, speed float64) Order 
 	}
 }
 
-func createkickOrder(from Physics.Point, to Physics.Point, speed float64) Order {
-	vec := Physics.NewZeroedVelocity(*Physics.NewVector(from, to).Normalize())
+func createKickOrder(from Physics.Point, to Physics.Point, speed float64) Order {
+	vec := Physics.NewZeroedVelocity(*Physics.NewVector(from, to))
 	vec.Speed = speed
 	return Order{
 		Type: KICK,
@@ -50,8 +50,9 @@ func TestUnmarshalMoveOrder(t *testing.T) {
 		assert.Equal(t, float64(-14), moveOrder.Velocity.Direction.GetY())
 	}
 }
+
 func TestMarshalKickOrder(t *testing.T) {
-	order := createkickOrder(Physics.Point{0, 0}, Physics.Point{5, -14}, 50)
+	order := createKickOrder(Physics.Point{0, 0}, Physics.Point{5, -14}, 50)
 	cont, err := json.Marshal(order)
 	if err != nil {
 		t.Errorf("Fail on marshal order: %s", err.Error())

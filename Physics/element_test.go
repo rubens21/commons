@@ -123,7 +123,7 @@ func TestElement_VectorCollides(t *testing.T) {
 	//radios: 7.07
 	var collisionPoint *Point
 
-	vecA := NewVector(Point{}, Point{12,0})
+	vecA := NewVector(Point{}, Point{12, 0})
 
 	// no colision horizontal
 	assert.Nil(t, element.VectorCollides(*vecA, Point{-20, 0}, 0.0))
@@ -152,9 +152,8 @@ func TestElement_VectorCollides(t *testing.T) {
 	//
 	element.Coords = Point{20, 20}
 
-	vecB := NewVector(Point{}, Point{10,10})
+	vecB := NewVector(Point{}, Point{10, 10})
 	vecB.SetLength(50)
-
 
 	collisionPoint = element.VectorCollides(*vecB, Point{0, 0}, 0.0)
 	assert.Equal(t, &Point{16, 16}, collisionPoint)

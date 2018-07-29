@@ -16,7 +16,7 @@ func (p *Point) DistanceTo(coordTo Point) (distance float64) {
 	return math.Hypot(catA, catO)
 }
 
-func (p *Point) MiddlePointTo(target Point) Point  {
+func (p *Point) MiddlePointTo(target Point) Point {
 	x := math.Abs(float64(p.PosX - target.PosX))
 	y := math.Abs(float64(p.PosY - target.PosY))
 
@@ -29,4 +29,3 @@ func (p *Point) MiddlePointTo(target Point) Point  {
 func (p *Point) String() string {
 	return fmt.Sprintf("{%d, %d}", p.PosX, p.PosY)
 }
-

@@ -3,7 +3,7 @@ package commons
 import "github.com/fatih/color"
 
 type Cleaner struct {
-	name string
+	name     string
 	callback func(bool)
 }
 
@@ -17,7 +17,7 @@ func RegisterCleaner(name string, callback func(bool)) {
 	cleanerStack = append([]Cleaner{cleaner}, cleanerStack...)
 }
 
-func Cleanup(interrupted bool)  {
+func Cleanup(interrupted bool) {
 	LogNotice("Cleaning up")
 	for _, cleaner := range cleanerStack {
 		LogInfo("Closing: %s", cleaner.name)

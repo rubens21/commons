@@ -81,7 +81,7 @@ func TestColisionDectection(t *testing.T) {
 			}
 		}
 
-		if math.Abs(math.Abs(dist) - math.Abs(testCase.Dist)) > 0.00001 {
+		if math.Abs(math.Abs(dist)-math.Abs(testCase.Dist)) > 0.00001 {
 			t.Errorf("%s: Wrong distance dist: %f (expected %f)", testCase.Name, dist, testCase.Dist)
 		}
 
@@ -100,7 +100,7 @@ func TestColisionDectection(t *testing.T) {
 			}
 		}
 
-		if math.Abs(math.Abs(dist) - math.Abs(testCase.Dist)) > 0.00001 {
+		if math.Abs(math.Abs(dist)-math.Abs(testCase.Dist)) > 0.00001 {
 			t.Errorf("%s: Wrong distance dist: %f (expected %f)", testCase.Name, dist, testCase.Dist)
 		}
 

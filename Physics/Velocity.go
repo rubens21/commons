@@ -6,7 +6,7 @@ import (
 )
 
 type Velocity struct {
-	Direction *Vector  `json:"direction"`
+	Direction *Vector `json:"direction"`
 	Speed     float64 `json:"speed"`
 }
 

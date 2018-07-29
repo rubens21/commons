@@ -18,7 +18,7 @@ type Channel struct {
 	listenerTask   *commons.Task
 	onMessage      func(bytes []byte)
 	connectionOpen bool
-	mu sync.Mutex
+	mu             sync.Mutex
 }
 
 func NewTalkChannel(url url.URL, playerSpec BasicTypes.PlayerSpecifications) *Channel {
