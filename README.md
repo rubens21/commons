@@ -5,7 +5,7 @@
 [![Go Report Card](https://goreportcard.com/badge/github.com/makeitplay/commons)](https://goreportcard.com/report/github.com/makeitplay/commons)
 
 MakeItPlay - Football Commons is a [Go](http://golang.org/) library the provides some shareable features between the
-game server and the clients of the MakeItPlay Football game. This lib is meant to be used by the  [Client Player](https://github.com/makeitplay/client-player-go)
+game server and the clients of the [MakeItPlay football](http://www.makeitplay.ai/football) game. This lib is meant to be used by the  [Client Player](https://github.com/makeitplay/client-player-go)
 implemented in Go. However, you may implement another client and use this lib as well.
 
 If you wish to use part of this lib for any other project, please let me know if you find bugs, I will fix as soon as possible.   
