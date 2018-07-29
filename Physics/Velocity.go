@@ -5,11 +5,13 @@ import (
 	"math"
 )
 
+// Velocity combines the direction with a speed. THe direction is expected to be normalized with magnitude 100
 type Velocity struct {
 	Direction *Vector `json:"direction"`
 	Speed     float64 `json:"speed"`
 }
 
+// NewZeroedVelocity creates a velocity with speed zero
 func NewZeroedVelocity(direction Vector) Velocity {
 	s := Velocity{}
 	s.Direction = &direction
@@ -17,12 +19,15 @@ func NewZeroedVelocity(direction Vector) Velocity {
 	return s
 }
 
+// Copy copies the object
 func (v *Velocity) Copy() Velocity {
 	copyS := NewZeroedVelocity(*v.Direction.Copy())
 	copyS.Speed = v.Speed
 	return copyS
 }
 
+// Target returns the target point from the point `from` considering the distance as the speed.
+// Said that, the magnitude of the velocity direction vector does not affects the final point.
 func (v *Velocity) Target(from Point) Point {
 	if v.Speed == 0 {
 		return from
@@ -36,6 +41,7 @@ func (v *Velocity) Target(from Point) Point {
 	}
 }
 
+// Add two velocities values. The direction will be a simple vector sum, so they will be affected by their magnitude.
 func (v *Velocity) Add(velocity Velocity) {
 	copied := velocity.Copy()
 
@@ -53,6 +59,7 @@ func (v *Velocity) Add(velocity Velocity) {
 	v.Direction.Normalize()
 }
 
+// String returns the string representation of the velocity
 func (v *Velocity) String() string {
 	return fmt.Sprintf("[%.2fx,%.2fy => %.2fs]", v.Direction.GetX(), v.Direction.GetY(), v.Speed)
 }
