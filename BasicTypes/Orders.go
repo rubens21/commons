@@ -2,9 +2,9 @@ package BasicTypes
 
 import (
 	"encoding/json"
+	"fmt"
 	"github.com/makeitplay/commons/Physics"
 	"github.com/pkg/errors"
-	"fmt"
 )
 
 // Order is a orders sent by the player to the game server during the LISTENING state
@@ -27,12 +27,12 @@ const (
 	// orders sent by the PLAYER
 
 	// MOVE is order to change the direction and speed of the player
-	MOVE  OrderType = "MOVE"
+	MOVE OrderType = "MOVE"
 	// KICK is the order sent by the ball holder to release the ball and changes its direction and speed
 	// the current ball direction will be summed with the new direction set by the order
-	KICK  OrderType = "KICK"  // Kick the ball to that position
+	KICK OrderType = "KICK"
 	// CATCH is an order to try to catch the ball, that has to being touched by the player
-	CATCH OrderType = "CATCH" // I'll try to catch the ball of the player
+	CATCH OrderType = "CATCH"
 )
 
 // GetMoveOrderData returns the Data order field in MoveOrderData format

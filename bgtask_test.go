@@ -1,10 +1,10 @@
 package commons
 
 import (
-	"testing"
 	"fmt"
-	"time"
 	"github.com/stretchr/testify/assert"
+	"testing"
+	"time"
 )
 
 func TestNewTask(t *testing.T) {

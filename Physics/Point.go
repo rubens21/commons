@@ -1,8 +1,8 @@
 package Physics
 
 import (
-	"math"
 	"fmt"
+	"math"
 )
 
 // Point represents a exact point in the field

@@ -1,13 +1,13 @@
 package talk
 
 import (
+	"encoding/json"
+	"fmt"
 	"github.com/gorilla/websocket"
-	"net/url"
+	"github.com/makeitplay/commons"
 	"github.com/makeitplay/commons/BasicTypes"
 	"net/http"
-	"fmt"
-	"encoding/json"
-	"github.com/makeitplay/commons"
+	"net/url"
 	"sync"
 )
 

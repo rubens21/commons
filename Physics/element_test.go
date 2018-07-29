@@ -1,9 +1,9 @@
 package Physics
 
 import (
-	"testing"
 	"github.com/stretchr/testify/assert"
 	"math"
+	"testing"
 )
 
 func TestElement_LineCollides(t *testing.T) {
@@ -164,12 +164,12 @@ func TestElement_HasCollided(t *testing.T) {
 	elementA := Element{
 		Size:     9,
 		Coords:   Point{},
-		Velocity: NewZeroedVelocity(*NewVector(Point{}, Point{1,0}).Normalize()),
+		Velocity: NewZeroedVelocity(*NewVector(Point{}, Point{1, 0}).Normalize()),
 	}
 	elementB := Element{
 		Size:     12,
 		Coords:   Point{PosX: 50},
-		Velocity: NewZeroedVelocity(*NewVector(Point{}, Point{1,0}).Normalize())}
+		Velocity: NewZeroedVelocity(*NewVector(Point{}, Point{1, 0}).Normalize())}
 
 	elementsBodySpace := float64(elementB.Size+elementA.Size) / 2
 

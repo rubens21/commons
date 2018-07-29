@@ -1,12 +1,12 @@
 package commons
 
 import (
-	"github.com/fatih/color"
 	"bytes"
 	"fmt"
+	"github.com/fatih/color"
 )
 
-var NickName = "Unkown"
+var NickName = "Unknown"
 
 func Log(message string, a ...interface{}) {
 	var buffer bytes.Buffer

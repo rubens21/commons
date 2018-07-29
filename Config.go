@@ -1,8 +1,8 @@
 package commons
 
 import (
-	"os"
 	"encoding/json"
+	"os"
 )
 
 func Load(config interface{}) {

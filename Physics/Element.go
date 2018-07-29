@@ -7,9 +7,9 @@ import (
 // Element generalizes the basic attributes of elements in the field
 type Element struct {
 	// Size is the size of the element, important to detect collision
-	Size     int
+	Size int
 	// Coords current position of the element
-	Coords   Point    `json:"position"`
+	Coords Point `json:"position"`
 	// Velocity velocity of the object
 	Velocity Velocity `json:"velocity"`
 }
@@ -31,7 +31,7 @@ func (e *Element) IsObstacle(target Point, obstacle Point, errMarginDegree float
 func (e *Element) HasCollided(obstacle *Element) (bool, float64) {
 	minDistance := float64(e.Size+obstacle.Size) / 2
 	if e.Coords.DistanceTo(obstacle.Coords) == 0 {
-		return true, float64(e.Size + obstacle.Size)/2
+		return true, float64(e.Size+obstacle.Size) / 2
 	}
 	centerDistance := NewVector(e.Coords, obstacle.Coords).Length()
 	realDistance := centerDistance - minDistance
@@ -106,10 +106,10 @@ func (e *Element) LineCollides(a, b Point, margin float64) (bool, *Point, *Point
 		Gy := (t+dt)*Dy + float64(a.PosY)
 
 		return true, &Point{
-			int(math.Round(Fx)), int(math.Round(Fy)),
-		}, &Point{
-			int(math.Round(Gx)), int(math.Round(Gy)),
-		}
+				int(math.Round(Fx)), int(math.Round(Fy)),
+			}, &Point{
+				int(math.Round(Gx)), int(math.Round(Gy)),
+			}
 	} else if LEC == R { // else test if the line is tangent to circle
 		// tangent point to circle is E
 		return true, &Point{

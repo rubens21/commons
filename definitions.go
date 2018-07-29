@@ -2,8 +2,8 @@ package commons
 
 import (
 	"github.com/makeitplay/commons/BasicTypes"
-	"github.com/makeitplay/commons/Units"
 	"github.com/makeitplay/commons/Physics"
+	"github.com/makeitplay/commons/Units"
 )
 
 const (

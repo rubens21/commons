@@ -1,9 +1,9 @@
 package Physics
 
 import (
-	"testing"
 	"github.com/stretchr/testify/assert"
 	"math"
+	"testing"
 )
 
 func TestVector_AngleWith_ZeroDegree(t *testing.T) {

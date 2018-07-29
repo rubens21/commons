@@ -1,10 +1,10 @@
 package BasicTypes
 
 import (
-	"testing"
-	"github.com/makeitplay/commons/Physics"
 	"encoding/json"
+	"github.com/makeitplay/commons/Physics"
 	"github.com/stretchr/testify/assert"
+	"testing"
 )
 
 func createMoveOrder(from Physics.Point, to Physics.Point, speed float64) Order {
