@@ -27,6 +27,5 @@ var AwayTeamGoal = BasicTypes.Goal{
 	BottomPole: Physics.Point{Units.CourtWidth, Units.GoalMinY},
 }
 
-
 // CourtCenter works as a constant value to help to retrieve a Point struct with the values of the center of the court
 var CourtCenter = Physics.Point{Units.CourtWidth / 2, Units.CourtHeight / 2}
