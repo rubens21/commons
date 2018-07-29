@@ -25,7 +25,6 @@ const CourtWidth = 200 * BaseUnit
 // CourtHeight is the height of the court (horizontal view)
 const CourtHeight = 100 * BaseUnit
 
-
 const BallSize = 2 * BaseUnit
 const BallDeceleration = 0.4 * BaseUnit // ratio value for slowing the ball
 const BallMaxSpeed = 8.8 * BaseUnit     // units/lance
