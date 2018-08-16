@@ -7,7 +7,7 @@ import (
 // Element generalizes the basic attributes of elements in the field
 type Element struct {
 	// Size is the size of the element, important to detect collision
-	Size int
+	Size int `json:"-"`
 	// Coords current position of the element
 	Coords Point `json:"position"`
 	// Velocity velocity of the object
